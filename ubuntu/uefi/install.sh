@@ -26,6 +26,7 @@ n
 
 +64M
 n
+2
 
 
 w
@@ -39,7 +40,7 @@ sudo mount /dev/${DISKNAME}2 /mnt/root
 
 downloadAndExtract () {
 cd /mnt/root
-sudo wget https://cdimage.ubuntu.com/ubuntu-base/releases/$VERSION/release/ubuntu-base-$VERSION-base-amd64.tar.gz
+sudo curl -O https://cdimage.ubuntu.com/ubuntu-base/releases/$VERSION/release/ubuntu-base-$VERSION-base-amd64.tar.gz
 sudo tar xzvf ubuntu-base-$VERSION-base-amd64.tar.gz
 sudo rm ubuntu-base-$VERSION-base-amd64.tar.gz
 sudo mkdir -p /mnt/root/boot/efi
