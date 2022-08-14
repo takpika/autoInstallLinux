@@ -90,6 +90,16 @@ sudo chroot /mnt/root /usr/sbin/grub-install --target=i386-pc /dev/$DISKNAME
 sudo chroot /mnt/root /usr/sbin/grub-mkconfig -o /boot/grub/grub.cfg
 }
 
+setPasswordConf () {
+tee /mnt/root/home/$USER_NAME/.bash_profile << EOF
+echo "Please change password"
+echo "Current password is 'password'"
+passwd
+rm ~/.bash_profile
+EOF
+sudo chroot /mnt/root chown $USER_NAME /home/$USER_NAME/.bash_profile
+}
+
 main () {
 formatDisk
 downloadAndExtract
@@ -98,6 +108,7 @@ installApt
 setHost
 setMount
 createUser
+setPasswordConf
 installGrub
 sudo reboot
 }
