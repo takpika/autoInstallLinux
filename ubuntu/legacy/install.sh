@@ -16,7 +16,7 @@ KERNEL_VERSION=5.15.0-46
 #-----------
 
 USER_NAME=$1
-USER_PASS=$2
+USER_PASS=password
 
 formatDisk () {
 sudo fdisk /dev/$DISKNAME << EOF
