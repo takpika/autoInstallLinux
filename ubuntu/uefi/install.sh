@@ -88,6 +88,7 @@ sudo chroot /mnt/root /usr/sbin/useradd $USER_NAME -d /home/$USER_NAME -s /bin/b
 sudo chroot /mnt/root /usr/bin/passwd -d $USER_NAME
 sudo chroot /mnt/root mkdir /home/$USER_NAME
 sudo chroot /mnt/root chown -R $USER_NAME /home/$USER_NAME
+sudo chroot /mnt/root chmod -R 750 /home/$USER_NAME
 sudo chroot /mnt/root /usr/sbin/usermod -G sudo $USER_NAME
 }
 
