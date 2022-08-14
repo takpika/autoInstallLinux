@@ -1,7 +1,7 @@
 #!/bin/sh
 #-----------
 #Ubuntu自動インストーラー(UEFI形式) Intel/AMD 64bit(x86_64)
-#使い方: sh install.sh <ユーザー名> <パスワード>
+#使い方: sh install.sh <ユーザー名>
 #インストール所要時間: 約3〜4分
 #-----------
 #設定エリア
@@ -102,10 +102,22 @@ sudo chroot /mnt/root /usr/sbin/grub-mkconfig -o /boot/grub/grub.cfg
 setPasswordConf () {
 tee /mnt/root/home/$USER_NAME/.bash_profile << EOF
 echo "Please set your password"
-passwd
+while ! passwd; do
+echo 'failure. retry...'
+done
 rm ~/.bash_profile
 EOF
 sudo chroot /mnt/root chown $USER_NAME /home/$USER_NAME/.bash_profile
+}
+
+finish () {
+printf "Installation finished. Do you want to reboot now? [Y/n] "
+read CMDR
+if [ "$CMDR" = "y" ];then
+sudo reboot
+elif [ "$CMDR" = "Y" ];then
+sudo reboot
+fi
 }
 
 main () {
@@ -118,7 +130,7 @@ setMount
 createUser
 setPasswordConf
 installGrub
-sudo reboot
+finish
 }
 
 main
