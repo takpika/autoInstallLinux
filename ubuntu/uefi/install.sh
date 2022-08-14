@@ -16,7 +16,6 @@ KERNEL_VERSION=5.15.0-46
 #-----------
 
 USER_NAME=$1
-USER_PASS=password
 
 formatDisk () {
 sudo fdisk /dev/$DISKNAME << EOF
@@ -85,8 +84,8 @@ fi
 }
 
 createUser () {
-sudo chroot /mnt/root perl -e "print(crypt('$USER_PASS', 'wtf'));" > ~/.pass
-sudo chroot /mnt/root /usr/sbin/useradd $USER_NAME -p `cat ~/.pass` -d /home/$USER_NAME -s /bin/bash -u 1000
+sudo chroot /mnt/root /usr/sbin/useradd $USER_NAME -d /home/$USER_NAME -s /bin/bash -u 1000
+sudo chroot /mnt/root /usr/bin/passwd -d $USER_NAME
 sudo chroot /mnt/root mkdir /home/$USER_NAME
 sudo chroot /mnt/root chown -R $USER_NAME /home/$USER_NAME
 sudo chroot /mnt/root /usr/sbin/usermod -G sudo $USER_NAME
@@ -99,8 +98,7 @@ sudo chroot /mnt/root /usr/sbin/grub-mkconfig -o /boot/grub/grub.cfg
 
 setPasswordConf () {
 tee /mnt/root/home/$USER_NAME/.bash_profile << EOF
-echo "Please change password"
-echo "Current password is 'password'"
+echo "Please set your password"
 passwd
 rm ~/.bash_profile
 EOF
