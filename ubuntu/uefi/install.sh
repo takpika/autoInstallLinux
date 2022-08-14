@@ -71,7 +71,7 @@ EOF
 setMount () {
 sudo tee /mnt/root/etc/fstab << EOF
 /dev/${DISKNAME}2 / ext4 errors=remount-ro 0 1
-/dev/${DISKNAME}1 /boot/efi vfat umask=0066 0 1
+/dev/${DISKNAME}1 /boot/efi vfat umask=0077 0 1
 EOF
 if "${NEEDSWAP}"; then
 sudo chroot /mnt/root fallocate -l $SWAPSIZE /swapfile
