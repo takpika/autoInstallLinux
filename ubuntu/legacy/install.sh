@@ -70,7 +70,7 @@ EOF
 if "${NEEDSWAP}"; then
 sudo chroot /mnt/root fallocate -l $SWAPSIZE /swapfile
 sudo chroot /mnt/root chmod 600 /swapfile
-sudo chroot /mnt/root mkswap /swapfile
+sudo chroot /mnt/root /usr/sbin/mkswap /swapfile
 sudo tee -a /mnt/root/etc/fstab << EOF
 /swapfile none swap sw 0 0
 EOF
@@ -79,15 +79,15 @@ fi
 
 createUser () {
 sudo chroot /mnt/root perl -e "print(crypt('$USER_PASS', 'wtf'));" > ~/.pass
-sudo chroot /mnt/root useradd $USER_NAME -p `cat ~/.pass` -d /home/$USER_NAME -s /bin/bash -u 1000
+sudo chroot /mnt/root /usr/sbin/useradd $USER_NAME -p `cat ~/.pass` -d /home/$USER_NAME -s /bin/bash -u 1000
 sudo chroot /mnt/root mkdir /home/$USER_NAME
 sudo chroot /mnt/root chown -R $USER_NAME /home/$USER_NAME
-sudo chroot /mnt/root usermod -G sudo $USER_NAME
+sudo chroot /mnt/root /usr/sbin/usermod -G sudo $USER_NAME
 }
 
 installGrub () {
-sudo chroot /mnt/root grub-install --target=i386-pc /dev/$DISKNAME
-sudo chroot /mnt/root grub-mkconfig -o /boot/grub/grub.cfg
+sudo chroot /mnt/root /usr/sbin/grub-install --target=i386-pc /dev/$DISKNAME
+sudo chroot /mnt/root /usr/sbin/grub-mkconfig -o /boot/grub/grub.cfg
 }
 
 main () {
