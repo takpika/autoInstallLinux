@@ -7,7 +7,7 @@ Linuxの自作インストーラーです
 動作に必要最低限なソフトしかインストールされません。必要なソフトがある場合は、自分でインストールしてください。
 
 ## 対応OS（起動方法）
-- Ubuntu (BIOS)
+- Ubuntu (BIOS・UEFI)
 
 ## 準備するもの
 - インストールに使用するLinux（インストーラーISOなどでOK）
@@ -16,8 +16,16 @@ Linuxの自作インストーラーです
 ## 使い方
 ### 1. スクリプトをダウンロード
 ```bash
-wget https://raw.githubusercontent.com/takpika/autoInstallLinux/master/ubuntu/legacy/install.sh
+wget https://raw.githubusercontent.com/takpika/autoInstallLinux/master/OS名/起動方法/install.sh
 ```
+インストールしたいOSと起動方法に応じてURLを書き換えてください。
+
+*注意: OS名は全て小文字です。*
+
+**起動方法**
+- UEFI: `uefi`
+- BIOS/Legacy: `legacy`
+
 ### 2. 必要に応じてスクリプト内の設定を変更
 OSのバージョンやホスト名（PC名）など必要に応じて設定をテキストエディタを使って変更してください。
 
