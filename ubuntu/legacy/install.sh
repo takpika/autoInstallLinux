@@ -18,7 +18,8 @@ KERNEL_VERSION=5.15.0-46
 USER_NAME=$1
 
 formatDisk () {
-sudo dd if=/dev/zero of=/dev/$DISKNAME bs=512 count=20
+sudo umount /dev/$DISKNAME*
+sudo dd if=/dev/zero of=/dev/$DISKNAME bs=1M count=1
 sudo fdisk /dev/$DISKNAME << EOF
 o
 n
