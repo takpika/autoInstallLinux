@@ -18,6 +18,7 @@ KERNEL_VERSION=5.15.0-46
 USER_NAME=$1
 
 formatDisk () {
+sudo dd if=/dev/zero of=/dev/$DISKNAME bs=512 count=20
 sudo fdisk /dev/$DISKNAME << EOF
 g
 n
