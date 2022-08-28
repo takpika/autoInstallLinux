@@ -117,7 +117,7 @@ main () {
 formatDisk
 downloadAndExtract
 mountBind
-installDnf
+installApt
 setHost
 setMount
 createUser
